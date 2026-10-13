@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FutureForge Ai By Passer</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071126;
+      --card: #101f3a;
+      --line: #24345f;
+      --text: #f8fafc;
+      --muted: #9eb0d0;
+      --amber: #fea511;
+      --ink: #1c1406;
+      --good: #86d6a8;
+    }
+    * { box-sizing: border-box; }
+    html, body { background: var(--bg); }
+    body {
+      width: 360px;
+      margin: 0;
+      padding: 16px;
+      color: var(--text);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+    header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    header img { width: 44px; height: 44px; border-radius: 12px; }
+    h1 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.35; }
+    .eyebrow { margin: 3px 0 0; color: var(--muted); font-size: 11px; }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    #status { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 13px; font-weight: 650; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #6d7c9c; }
+    .dot.on { background: var(--good); box-shadow: 0 0 0 4px rgba(134, 214, 168, 0.16); }
+    button { font-family: inherit; }
+    button.toggle {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--amber);
+      color: var(--ink);
+    }
+    button.toggle.is-on {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .hint { margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin: 16px 2px 8px; }
+    h2 { margin: 0; font-size: 12px; font-weight: 650; }
+    button.ghost {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11px;
+      cursor: pointer;
+      padding: 0;
+    }
+    button.ghost:disabled { opacity: 0.4; cursor: default; }
+    ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow: auto; }
+    li { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; }
+    .path { direction: ltr; text-align: left; font-size: 11px; line-height: 1.5; word-break: break-all; }
+    .meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; color: var(--muted); font-size: 10px; }
+    .empty {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      background: var(--card);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    footer { margin: 14px 2px 0; color: #7f8eab; font-size: 10px; line-height: 1.7; }
+    .links {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(36, 52, 95, 0.9);
+      text-align: center;
+    }
+    .links a { text-decoration: none; }
+    .links a:focus-visible {
+      outline: 1px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
+    .brand-name {
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .brand-url { color: var(--amber); font-size: 10px; letter-spacing: 0.02em; }
+    .brand::after {
+      content: "";
+      width: 22px;
+      height: 2px;
+      margin-top: 7px;
+      border-radius: 2px;
+      background: var(--amber);
+    }
+    .brand:hover .brand-name { color: var(--amber); }
+    .places {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .places a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .places a:hover { color: var(--text); }
+    .places svg { width: 13px; height: 13px; display: block; }
+    .places .sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #3d4f78;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="" width="44" height="44">
+    <div>
+      <h1>FutureForge Ai By Passer</h1>
+      <p class="eyebrow">FutureForge</p>
+    </div>
+  </header>
+  <section class="panel">
+    <div id="status">در حال بررسی…</div>
+    <button id="toggle" class="toggle" type="button">…</button>
+    <p id="hint" class="hint"></p>
+  </section>
+  <div class="section-head">
+    <h2>درخواست‌های اخیر</h2>
+    <button id="clear" class="ghost" type="button">پاک کردن</button>
+  </div>
+  <div id="hits"></div>
+  <footer>پاسخ صفحه را عوض نمی‌کند. فقط آدرس درخواست‌های پیکربندی را همین‌جا و در Console نشان می‌دهد.</footer>
+  <nav class="links" aria-label="FutureForge">
+    <a class="brand" href="https://futureforge.ir" target="_blank" rel="noopener">
+      <span class="brand-name">FutureForge</span>
+      <span class="brand-url">futureforge.ir</span>
+    </a>
+    <div class="places">
+      <a href="https://instagram.com/futureforge.ir" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.4" cy="6.6" r="1" fill="currentColor"/>
+        </svg>
+        اینستاگرام
+      </a>
+      <span class="sep" aria-hidden="true"></span>
+      <a href="https://t.me/futureforge_ir" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M20.7 4.4 2.9 11.2c-1.2.5-1.2 1.1-.2 1.4l4.6 1.4 1.8 5.6c.2.6.1.9.8.9.4 0 .6-.2.8-.4l2.6-2.5 4.9 3.6c.8.5 1.4.2 1.6-.8l2.8-13.2c.3-1.2-.5-1.7-1.9-1.2zM8.8 13.6l9.2-5.8c.4-.3.8-.1.5.2l-7.6 6.9-.3 3.3-1.8-4.6z"/>
+        </svg>
+        تلگرام
+      </a>
+    </div>
+  </nav>
+  <script src="popup.js"></script>
+</body>
+</html>
